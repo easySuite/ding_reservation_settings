@@ -1,0 +1,15 @@
+<?php
+/**
+ * @file
+ * ding_reservation_settings.install
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ding_reservation_settings_install() {
+  db_update('system')
+    ->fields(array('weight' => 1000))
+    ->condition('name', 'ding_reservation_settings', '=')
+    ->execute();
+}

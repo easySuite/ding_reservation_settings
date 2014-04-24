@@ -1,0 +1,5 @@
+name = Ding Reservation Settings
+description = Allows users to enadle/disable quick reservation.
+package = easyTing
+core = 7.x
+version = 7.x-1.0
