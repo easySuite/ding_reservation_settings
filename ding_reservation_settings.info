@@ -1,0 +1,14 @@
+name = Ding Reservation Settings
+description = Allows users to enadle/disable quick reservation.
+core = 7.x
+package = Easyting Extra
+php = 5.2.4
+version = 7.x-1.0
+project = ding_reservation_settings
+dependencies[] = features
+dependencies[] = field_sql_storage
+dependencies[] = list
+dependencies[] = options
+features[features_api][] = api:1
+features[field][] = profile2-provider_alma-field_quick_reservation
+features[field][] = profile2-provider_openruth-field_quick_reservation

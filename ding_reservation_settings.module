@@ -1,0 +1,78 @@
+<?php
+/**
+ * @file
+ * Ding Reservation Settings.
+ *
+ * Allows users to enadle/disable quick reservation.
+ */
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ *
+ * Modifies user profile form.
+ */
+function ding_reservation_settings_form_user_profile_form_alter(
+  &$form,
+  &$form_state,
+  $form_id
+) {
+  global $user;
+
+  // Get user's "quick reservation" setting.
+  $provider = ding_provider_get_provider_module_name('reservation');
+  $profile = ding_user_provider_profile($user);
+  $field_value = field_get_items(
+    'profile2',
+    $profile,
+    'field_quick_reservation'
+  );
+  $value = $field_value[0]['value'];
+
+  // Set "quick reservation" field above "prefered branch'.
+  $form['profile_provider_' . $provider]['field_quick_reservation']['#weight'] =
+    $form['profile_provider_' . $provider]['field_' . $provider . '_interest_period']['#weight'] - 2;
+
+  // Disable dropdowns.
+  if ($value == 1) {
+    $form['profile_provider_' . $provider]['field_' . $provider . '_interest_period']['#disabled'] = TRUE;
+    if ($provider == 'openruth') {
+      $form['profile_provider_' . $provider][$provider . '_preferred_branch']['#disabled'] = TRUE;
+    }
+    else {
+      $form['profile_provider_' . $provider]['field_' . $provider . '_preferred_branch']['#disabled'] = TRUE;
+    }
+  }
+
+  // Set profile2 submit handler last
+  $index = array_search('profile2_form_submit_handler', $form['#submit']);
+  if ($index !== FALSE) {
+    unset($form['#submit'][$index]);
+  }
+  $form['#submit'][] = 'ding_reservation_settings_form_submit';
+  if ($index !== FALSE) {
+    $form['#submit'][] = 'profile2_form_submit_handler';
+  }
+
+  $form['#attached']['js'][] = drupal_get_path(
+      'module',
+      'ding_reservation_settings'
+    ) . '/ding_reservation_settings.js';
+}
+
+function ding_reservation_settings_form_submit($form, &$form_state) {
+  $provider = ding_provider_get_provider_module_name('reservation');
+  $values = & $form_state['values']['profile_provider_' . $provider];
+
+  if ($values['field_quick_reservation']['und'][0]['value'] == 1) {
+    $values['field_' . $provider . '_interest_period']['und'][0]['value'] = '';
+
+    // Handle difference in field namings for diferent providers.
+    if ($provider == 'openruth') {
+      $values[$provider . '_preferred_branch']['und'][0]['value'] = '';
+    }
+    else {
+      $values['field_' . $provider . '_preferred_branch']['und'][0]['value'] = '';
+    }
+  }
+
+}
