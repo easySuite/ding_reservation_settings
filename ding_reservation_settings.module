@@ -11,7 +11,7 @@
  *
  * Modifies user profile form.
  */
-function ding_reservation_settings_form_user_profile_form_alter(
+function ding_reservation_settings_form_profile2_edit_provider_alma_form_alter(
   &$form,
   &$form_state,
   $form_id
@@ -34,11 +34,14 @@ function ding_reservation_settings_form_user_profile_form_alter(
 
   // Disable dropdowns.
   if ($value == 1) {
+    $form['profile_provider_' . $provider]['field_' . $provider . '_interest_period']['und']['#default_value'] = '_none';
     $form['profile_provider_' . $provider]['field_' . $provider . '_interest_period']['#disabled'] = TRUE;
     if ($provider == 'openruth') {
+      $form['profile_provider_' . $provider][$provider . '_preferred_branch']['und']['#default_value'] = '_none';
       $form['profile_provider_' . $provider][$provider . '_preferred_branch']['#disabled'] = TRUE;
     }
     else {
+      $form['profile_provider_' . $provider]['field_' . $provider . '_preferred_branch']['und']['#default_value'] = '_none';
       $form['profile_provider_' . $provider]['field_' . $provider . '_preferred_branch']['#disabled'] = TRUE;
     }
   }
