@@ -11,7 +11,7 @@
  *
  * Modifies user profile form.
  */
-function ding_reservation_settings_form_user_profile_form_alter(
+function ding_reservation_settings_form_profile2_edit_provider_alma_form_alter(
   &$form,
   &$form_state,
   $form_id
