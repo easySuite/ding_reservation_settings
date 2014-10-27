@@ -8,11 +8,21 @@
       + ', #edit-profile-provider-openruth-field-openruth-interest-period-und';
 
     $(checkbox_ids).click(function () {
-      if ($(this).is(':checked')) {
-        $(dropdown_ids).attr('disabled', true);
+      if (Drupal.settings.ding_reservation_settings.quick_reservation === "0") {
+        if ($(this).is(':checked')) {
+          $(dropdown_ids).attr('disabled', false);
+        }
+        else {
+          $(dropdown_ids).attr('disabled', true);
+        }
       }
       else {
-        $(dropdown_ids).attr('disabled', false);
+        if ($(this).is(':checked')) {
+          $(dropdown_ids).attr('disabled', true);
+        }
+        else {
+          $(dropdown_ids).attr('disabled', false);
+        }
       }
     });
   });
