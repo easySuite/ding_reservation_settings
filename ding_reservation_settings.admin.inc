@@ -31,19 +31,5 @@ function ding_reservation_settings_admin_form($form, &$form_state) {
     '#default_value' => variable_get('ding_quick_reservation', FALSE),
   );
 
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Save'),
-  );
-
-  return $form;
-}
-
-/**
- * Admin form submit.
- *
- * @see ding_reservation_settings_admin_form().
- */
-function ding_reservation_settings_admin_form_submit($form, &$form_state) {
-  variable_set('ding_quick_reservation', $form_state['values']['ding_quick_reservation']);
+  return system_settings_form($form);
 }
