@@ -7,6 +7,24 @@
  */
 
 /**
+ *  Implements hook_menu().
+ */
+function ding_reservation_settings_menu() {
+  $items = array();
+
+  $items['admin/config/ding/reservation_settings'] = array(
+    'title' => 'Reservation settings.',
+    'description' => 'Configure reservation.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ding_reservation_settings_admin_form'),
+    'file' => 'ding_reservation_settings.admin.inc',
+    'access arguments' => array('admin config'),
+  );
+
+  return $items;
+}
+
+/**
  * Implements hook_form_BASE_FORM_ID_alter().
  *
  * Modifies user profile form.
@@ -32,16 +50,7 @@ function ding_reservation_settings_form_profile2_edit_provider_alma_form_alter(
   $form['profile_provider_' . $provider]['field_quick_reservation']['#weight'] =
     $form['profile_provider_' . $provider]['field_' . $provider . '_interest_period']['#weight'] - 2;
 
-  // Disable dropdowns.
-  if ($value == 1) {
-    $form['profile_provider_' . $provider]['field_' . $provider . '_interest_period']['#disabled'] = TRUE;
-    if ($provider == 'openruth') {
-      $form['profile_provider_' . $provider][$provider . '_preferred_branch']['#disabled'] = TRUE;
-    }
-    else {
-      $form['profile_provider_' . $provider]['field_' . $provider . '_preferred_branch']['#disabled'] = TRUE;
-    }
-  }
+  ding_reservation_settings_field_settings($form, $provider, $value);
 
   // Set profile2 submit handler last
   $index = array_search('profile2_form_submit_handler', $form['#submit']);
@@ -59,6 +68,11 @@ function ding_reservation_settings_form_profile2_edit_provider_alma_form_alter(
     ) . '/ding_reservation_settings.js';
 }
 
+/**
+ * Custom form submit for user edit form.
+ *
+ * @see ding_reservation_settings_form_profile2_edit_provider_alma_form_alter().
+ */
 function ding_reservation_settings_form_submit($form, &$form_state) {
   $provider = ding_provider_get_provider_module_name('reservation');
   $values = & $form_state['values']['profile_provider_' . $provider];
@@ -74,5 +88,40 @@ function ding_reservation_settings_form_submit($form, &$form_state) {
       $values['field_' . $provider . '_preferred_branch']['und'][0]['value'] = '';
     }
   }
+}
 
+/**
+ * Configure preferred branch and period depending of user and admin settings
+ *  of quick reservation.
+ *
+ * @param $form array form settings.
+ * @param $provider string ting provider.
+ * @param $user_quick_reservation bool quick reservation set by user.
+ */
+function ding_reservation_settings_field_settings(&$form, $provider, $user_quick_reservation) {
+  $quick_reservation = variable_get('ding_quick_reservation', FALSE);
+
+  $field_title = ($quick_reservation == 1) ? t('Disable quick reservation.') : t('Enable quick reservation.');
+
+  // Set field title.
+  $form['profile_provider_' . $provider]['field_quick_reservation'][LANGUAGE_NONE]['#title'] =
+    t($field_title);
+
+  // Disable dropdowns.
+  if ($user_quick_reservation == 1 || $quick_reservation == 0) {
+    $form['profile_provider_' . $provider]['field_' . $provider . '_interest_period']['#disabled'] = TRUE;
+    if ($provider == 'openruth') {
+      $form['profile_provider_' . $provider][$provider . '_preferred_branch']['#disabled'] = TRUE;
+    }
+    else {
+      $form['profile_provider_' . $provider]['field_' . $provider . '_preferred_branch']['#disabled'] = TRUE;
+    }
+  }
+
+  $js_settings = array(
+    'ding_reservation_settings' => array(
+      'quick_reservation' => $quick_reservation,
+    ),
+  );
+  drupal_add_js($js_settings, 'setting');
 }
