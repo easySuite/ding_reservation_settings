@@ -28,7 +28,7 @@ function ding_reservation_settings_admin_form($form, &$form_state) {
     '#type' => 'radios',
     '#title' => t('Quick reservation.'),
     '#options' => $quick_reservation,
-    '#default_value' => variable_get('ding_quick_reservation', FALSE),
+    '#default_value' => variable_get('ding_quick_reservation', TRUE),
   );
 
   return system_settings_form($form);
