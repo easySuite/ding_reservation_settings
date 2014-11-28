@@ -101,11 +101,19 @@ function ding_reservation_settings_form_submit($form, &$form_state) {
 function ding_reservation_settings_field_settings(&$form, $provider, $user_quick_reservation) {
   $quick_reservation = variable_get('ding_quick_reservation', FALSE);
 
-  $field_title = ($quick_reservation == 1) ? t('Disable quick reservation.') : t('Enable quick reservation.');
+  if ($quick_reservation == 1) {
+    $field_title = t('Disable quick reservation.');
+    $field_desc = t('If you deactivate "quick"-reservation, you can choose pickup branch and interest period upon each reservation.');
+  }
+  else {
+    $field_title = t('Enable quick reservation.');
+    $field_desc = t('If you activate "quick"-reservation, you do not need to choose pickup branch and interest period upon each reservation.');
+  }
 
   // Set field title.
-  $form['profile_provider_' . $provider]['field_quick_reservation'][LANGUAGE_NONE]['#title'] =
-    t($field_title);
+  $form['profile_provider_' . $provider]['field_quick_reservation'][LANGUAGE_NONE]['#title'] = $field_title;
+  // Set field description.
+  $form['profile_provider_' . $provider]['field_quick_reservation'][LANGUAGE_NONE]['#description'] = $field_desc;
 
   // Disable dropdowns.
   if ($user_quick_reservation == 1 || $quick_reservation == 0) {
