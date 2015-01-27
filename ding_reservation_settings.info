@@ -1,5 +1,5 @@
 name = Ding Reservation Settings
-description = Allows users to enadle/disable quick reservation.
+description = Allows users to enable/disable quick reservation.
 core = 7.x
 package = Easyting Extra
 php = 5.2.4
