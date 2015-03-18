@@ -1,7 +1,7 @@
 name = Ding Reservation Settings
 description = Allows users to enable/disable quick reservation.
 core = 7.x
-package = Easyting Extra
+package = easyDDB
 php = 5.2.4
 version = 7.x-1.20
 project = ding_reservation_settings
