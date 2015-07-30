@@ -3,16 +3,16 @@
 # LANGUAGE translation of Drupal (general)
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 # Generated from files:
-#  ding_reservation_settings.admin.inc: n/a
-#  ding_reservation_settings.module: n/a
-#  ding_reservation_settings.features.field.inc: n/a
-#  ding_reservation_settings.info: n/a
+#  profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.admin.inc: n/a
+#  profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.module: n/a
+#  profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.features.field.inc: n/a
+#  profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.info: n/a
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2015-02-19 16:14+0100\n"
+"POT-Creation-Date: 2015-07-28 11:31+0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -21,55 +21,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ding_reservation_settings.admin.inc:16 ding_reservation_settings.module:97
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.admin.inc:16 profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.module:97
 msgid "Disable quick reservation."
 msgstr ""
 
-#: ding_reservation_settings.admin.inc:17 ding_reservation_settings.module:101
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.admin.inc:17 profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.module:101
 msgid "Enable quick reservation."
 msgstr ""
 
-#: ding_reservation_settings.admin.inc:22
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.admin.inc:22
 msgid "Quick reservation settings."
 msgstr ""
 
-#: ding_reservation_settings.admin.inc:29
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.admin.inc:29
 msgid "Quick reservation."
 msgstr ""
 
-#: ding_reservation_settings.features.field.inc:143
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.features.field.inc:143
 msgid "Disable quick reservation"
 msgstr ""
 
-#: ding_reservation_settings.features.field.inc:144
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.features.field.inc:144
 msgid "If checked, you will be asked to select \"Preferred branch\" and \"Interest period\" on each reservation."
 msgstr ""
 
-#: ding_reservation_settings.module:98
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.module:98
 msgid "If you deactivate \"quick\"-reservation, you can choose pickup branch and interest period upon each reservation."
 msgstr ""
 
-#: ding_reservation_settings.module:102
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.module:102
 msgid "If you activate \"quick\"-reservation, you do not need to choose pickup branch and interest period upon each reservation."
 msgstr ""
 
-#: ding_reservation_settings.module:16
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.module:16
 msgid "Reservation settings."
 msgstr ""
 
-#: ding_reservation_settings.module:17
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.module:17
 msgid "Configure reservation."
 msgstr ""
 
-#: ding_reservation_settings.info:0
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.info:0
 msgid "Ding Reservation Settings"
 msgstr ""
 
-#: ding_reservation_settings.info:0
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.info:0
 msgid "Allows users to enable/disable quick reservation."
 msgstr ""
 
-#: ding_reservation_settings.info:0
-msgid "Easyting Extra"
+#: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.info:0
+msgid "easyDDB"
 msgstr ""
 
