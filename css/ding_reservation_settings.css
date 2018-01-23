@@ -1,0 +1,8 @@
+#user-profile-form #edit-profile-provider-fbs-field-quick-reservation {
+  display: block;
+  float: left;
+}
+
+#user-profile-form #edit-profile-provider-fbs-field-quick-reservation .description {
+  margin: 5px 0;
+}

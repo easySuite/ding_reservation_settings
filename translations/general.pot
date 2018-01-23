@@ -70,6 +70,6 @@ msgid "Allows users to enable/disable quick reservation."
 msgstr ""
 
 #: profiles/ding2/modules/ding_reservation_settings/ding_reservation_settings.info:0
-msgid "easyDDB"
+msgid "easyOPAC"
 msgstr ""
 
