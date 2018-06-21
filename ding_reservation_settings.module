@@ -1,20 +1,21 @@
 <?php
+
 /**
  * @file
  * Ding Reservation Settings.
  *
- * Allows users to enadle/disable quick reservation.
+ * Allows users to enable/disable quick reservation.
  */
 
 /**
- *  Implements hook_menu().
+ * Implements hook_menu().
  */
 function ding_reservation_settings_menu() {
   $items = array();
 
   $items['admin/config/ding/reservation_settings'] = array(
-    'title' => 'Reservation settings.',
-    'description' => 'Configure reservation.',
+    'title' => 'Reservation settings',
+    'description' => 'Configure reservation',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('ding_reservation_settings_admin_form'),
     'file' => 'ding_reservation_settings.admin.inc',
@@ -40,51 +41,45 @@ function ding_reservation_settings_form_profile2_edit_provider_fbs_form_alter(&$
 
   ding_reservation_settings_field_settings($form, $provider, $value);
 
-  // Set profile2 submit handler last
-  $index = array_search('profile2_form_submit_handler', $form['#submit']);
-  if ($index !== FALSE) {
-    unset($form['#submit'][$index]);
-  }
-  $form['#submit'][] = 'ding_reservation_settings_form_submit';
-  if ($index !== FALSE) {
-    $form['#submit'][] = 'profile2_form_submit_handler';
-  }
+  array_unshift($form['#submit'], 'ding_reservation_settings_form_submit');
 }
 
 /**
  * Custom form submit for user edit form.
  *
- * @see ding_reservation_settings_form_profile2_edit_provider_fbs_form_alter().
+ * @see ding_reservation_settings_form_profile2_edit_provider_fbs_form_alter()
  */
 function ding_reservation_settings_form_submit($form, &$form_state) {
   $provider = ding_provider_get_provider_module_name('reservation');
   $values = &$form_state['values']['profile_provider_' . $provider];
   $quick_reservation = variable_get('ding_quick_reservation', FALSE);
 
-  if ($quick_reservation == $values['field_quick_reservation']['und'][0]['value']) {
-    $values['field_' . $provider . '_interest_period']['und'][0]['value'] = '';
-    // Handle difference in field namings for diferent providers.
+  if ($quick_reservation == $values['field_quick_reservation'][LANGUAGE_NONE][0]['value']) {
+    $values['field_' . $provider . '_interest_period'][LANGUAGE_NONE][0]['value'] = '';
+    // Handle difference in field namings for different providers.
     if ($provider == 'openruth') {
-      $values[$provider . '_preferred_branch']['und'][0]['value'] = '_none';
+      $values[$provider . '_preferred_branch'][LANGUAGE_NONE][0]['value'] = '_none';
     }
     else {
-      $values['field_' . $provider . '_preferred_branch']['und'][0]['value'] = '_none';
+      $values['field_' . $provider . '_preferred_branch'][LANGUAGE_NONE][0]['value'] = '';
     }
   }
 }
 
 /**
- * Configure preferred branch and period depending of user and admin settings
- *  of quick reservation.
+ * Applies form config for quick reservation relate fields.
  *
- * @param $form array form settings.
- * @param $provider string ting provider.
- * @param $user_quick_reservation bool quick reservation set by user.
+ * @param array $form
+ *   Form settings.
+ * @param string $provider
+ *   Provider identifier.
+ * @param bool $user_quick_reservation
+ *   Quick reservation value set by user.
  */
-function ding_reservation_settings_field_settings(&$form, $provider, $user_quick_reservation) {
+function ding_reservation_settings_field_settings(array &$form, $provider, $user_quick_reservation) {
   $quick_reservation = variable_get('ding_quick_reservation', FALSE);
 
-  if ($quick_reservation == 1) {
+  if ($quick_reservation) {
     $field_title = t('Disable quick reservation.');
     $field_desc = t('If you deactivate "quick"-reservation, you can choose pickup branch and interest period upon each reservation.');
   }
@@ -100,21 +95,21 @@ function ding_reservation_settings_field_settings(&$form, $provider, $user_quick
 
   $form['profile_provider_' . $provider]['field_' . $provider . '_interest_period']['#states'] = array(
     'disabled' => array(
-      'input[name="profile_provider_alma[field_quick_reservation][und]"]' => array('checked' => (bool)$quick_reservation)
+      'input[name="profile_provider_alma[field_quick_reservation][und]"]' => array('checked' => (bool) $quick_reservation),
     ),
   );
 
   if ($provider == 'openruth') {
-    $form['profile_provider_' . $provider][$provider . '_preferred_branch']['#states']= array(
+    $form['profile_provider_' . $provider][$provider . '_preferred_branch']['#states'] = array(
       'disabled' => array(
-        'input[name="profile_provider_' . $provider . '[field_quick_reservation][und]"]' => array('checked' => (bool)$quick_reservation)
+        'input[name="profile_provider_' . $provider . '[field_quick_reservation][und]"]' => array('checked' => (bool) $quick_reservation),
       ),
     );
   }
   else {
-    $form['profile_provider_' . $provider]['field_' . $provider . '_preferred_branch']['#states']= array(
+    $form['profile_provider_' . $provider]['field_' . $provider . '_preferred_branch']['#states'] = array(
       'disabled' => array(
-        'input[name="profile_provider_' . $provider . '[field_quick_reservation][und]"]' => array('checked' => (bool)$quick_reservation)
+        'input[name="profile_provider_' . $provider . '[field_quick_reservation][und]"]' => array('checked' => (bool) $quick_reservation),
       ),
     );
   }

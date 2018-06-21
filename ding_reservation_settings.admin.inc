@@ -1,16 +1,22 @@
 <?php
+
 /**
  * @file
- *  Admin functionality.
+ * Admin functionality.
  */
 
 /**
  * Administration form.
  *
- * @param $form
- * @param $form_state
+ * @param array $form
+ *   Form definition.
+ * @param array $form_state
+ *   Form state.
+ *
+ * @return array
+ *   Form definition.
  */
-function ding_reservation_settings_admin_form($form, &$form_state) {
+function ding_reservation_settings_admin_form(array $form, array &$form_state) {
 
   $quick_reservation = array(
     0 => t('Disable quick reservation.'),
